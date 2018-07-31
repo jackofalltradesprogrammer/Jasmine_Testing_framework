@@ -176,3 +176,16 @@ describe("A spy", function(){
         expect(foo.setBar.calls.any()).toEqual(true);
     });
 });
+
+describe("A spy, when created manually", function(){
+    var whatAml;
+
+    beforeEach(function(){
+        whatAml = jasmine.createSpy('whatAml');
+        whatAml("I", "am", "a", "spy");
+    });
+
+    it("tracks that the spy was called", function(){
+        expect(whatAml).toHaveBeenCalled();
+    });
+});
