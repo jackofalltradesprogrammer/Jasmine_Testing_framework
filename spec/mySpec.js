@@ -22,8 +22,27 @@ describe("The 'toBe' matcher compares with===", function() {
     });
 
     it("and can have a negative case", function(){
-        expect(falese).not.toBe(true);
+        expect(false).not.toBe(true);
+    });  
+});
+
+describe("A suite with some shared setup", function() {
+    var foo=0;
+
+    beforeEach(function(){
+        foo+=1;
+        console.log(foo);
     });
 
-    
+    afterEach(function(){
+        foo=0;
+    });
+
+    beforeAll(function(){
+        foo=1;
+    });
+
+    afterAll(function(){
+        foo=0;
+    });
 });
