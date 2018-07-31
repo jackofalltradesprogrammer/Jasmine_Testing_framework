@@ -46,3 +46,20 @@ describe("A suite with some shared setup", function() {
         foo=0;
     });
 });
+
+describe("A spec", function() {
+    beforeEach(function(){
+        this.foo=0;
+    });
+    
+    it("can use `this` to share state", function(){
+        expect(this.foo).toEqual(0);
+        this.bar="testPollution?";
+        this.foo=10;
+    });
+
+    it("prevents test pollution by having an empty 'this' created for the next spec", function(){
+        expect(this.foo).not.toEqual(10);
+        expect(this.bar).toBe(undefined);
+    });
+});
