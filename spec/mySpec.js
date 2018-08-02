@@ -432,4 +432,39 @@ describe("Asynchronous specs", function(){
             });
         });
     });
+
+    describe("Using promises", function(){
+        if(false){
+            return;
+        }
+
+        beforeEach(function(){
+            return soon().then(function(){
+                value=0;
+            });
+        });
+
+        it("should support async execution of test preparation and expectations", function(){
+            return soon().then(function(){
+                value++;
+                expect(value).toBeGreaterThan(0);
+            });
+        });
+    });
+
+    
+
+
+
+    function soon(){
+        return new Promise(function(resolve,reject){
+            setTimeout(function(){
+                resolve();
+            },1);
+        });
+    }
+
+    function browserHasPromises() {
+        return typeof Promise !== 'undefined';
+    }
 });
