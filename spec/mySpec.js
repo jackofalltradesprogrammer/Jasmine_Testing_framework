@@ -469,7 +469,21 @@ describe("Asynchronous specs", function(){
         });
     });
 
+    describe("long asynchronous specs", function(){
+        beforeEach(function(done) {
+            done();
+        }, 1000);
 
+        it("takes a long time", function(done) {
+            setTimeout(function(){
+                done();
+            },9000);
+        }, 10000);
+
+        afterEach(function(done){
+            done();
+        }, 1000);
+    });
 
     function soon(){
         return new Promise(function(resolve,reject){
