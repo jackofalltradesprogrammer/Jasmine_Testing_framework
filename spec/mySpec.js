@@ -412,5 +412,24 @@ describe("Asynchronous specs", function(){
             expect(value).toBeGreaterThan(0);
             done();
         });
+
+        describe("A spec using done.fail", function(){
+            var foo = function(x, callBack1, callBack2){
+                if(x){
+                    setTimeout(callBack1,0);
+                }
+                else{
+                    setTimeout(callBack2,0);
+                }
+            };
+
+            it("should not call the second callBack", function(done){
+                foo(true,
+                    done,
+                    function(){
+                        done.fail("Second callback has been called");
+                    });
+            });
+        });
     });
 });
