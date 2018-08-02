@@ -452,7 +452,22 @@ describe("Asynchronous specs", function(){
         });
     });
 
-    
+    describe("Using async/await", function(){
+        if(!browserHasAsyncAwaitSupport()) {
+            return;
+        }
+
+        beforeEach(async function(){
+            await soon();
+            value = 0;
+        });
+
+        it("should support async execution of test preperation and expectations", async function(){
+            await soon();
+            value++;
+            expect(value).toBeGreaterThan(0);
+        });
+    });
 
 
 
@@ -466,5 +481,18 @@ describe("Asynchronous specs", function(){
 
     function browserHasPromises() {
         return typeof Promise !== 'undefined';
+    }
+    
+    function getAsyncCtor(){
+        try {
+            eval("var func = async function(){};");
+        } catch (e) {
+            return null;
+        }
+        return Object.getPrototypeOf(func).constructor;
+    }
+
+    function browserHasAsyncAwaitSupport(){
+        return getAsyncCtor() !== null;
     }
 });
